@@ -1,0 +1,53 @@
+<h1>Books</h1>
+<% @books.each do |book| %>
+  <p>Title</p>
+ 
+<% end %>
+
+<div class="body">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-3">
+              <h1>User info</h1>
+                <if user_sign_in? %>
+                <img class="attachment user profile_image fallback" alt="No image">
+                 <table class="table">
+                    <tbody>
+                      <h4>name     <%= current_user.name %> </h4>
+                      <h4>introduction</h4>
+                    </tbody>
+                 </table>
+                 <a class="col-xs-12 btn btn-default glyphicon glyphicon-wrench"></a>
+
+                <h1>New book</h1>
+                 <%= form_with model:@user, local:true do |f| %>
+
+                <h4>Title</h4>
+                  <%= f.text_field :title %>
+
+                <h4>Opinion</h4>
+                  <%= f.text_area :body %>
+
+                  <%= f.submit 'Create Book' %>
+            </div>
+
+            <div class="col-xs-9">
+              <h4>Books</h4>
+              <% @books.each do |book| %>
+              <table class="table table-hover table-inverse">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Title</th>
+                      <span><%= link_to book.title, book_path(book.id) %></span>
+                    <th>Opinion</th>
+                      <span><%=link_to book.opinion, book_path(book.id) %></span>
+                    <thcolspan="3"></thcolspan></th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+        </div>
+    </div>
+  </div>
+<% end %>
