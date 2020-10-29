@@ -4,4 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   attr_accessor :remember_token
+  has_many :books
+  validates :name, presence: true, length: { in: 2..20 }
+  validates :introduction, presence: true, length: { maximum: 50 }
+  attachment :profile_image
 end

@@ -1,10 +1,13 @@
 <div class="body">
     <div class="container">
+      <%=flash[:notice] %>
         <div class="row">
             <div class="col-xs-3">
               <h1>User info</h1>
-                <if user_sign_in? %>
-                <img class="attachment user profile_image fallback" alt="No image">
+                <%= form_for (@user) do |form| %>
+                  <%= form.attachment_field :profile_image %>
+                  <%= attachment_image_tag @user, :profile_image %>
+                <% end %>
                  <table class="table">
                     <tbody>
                       <h4>name     <%= current_user.name %> </h4>
@@ -14,7 +17,7 @@
                  <a class="col-xs-12 btn btn-default glyphicon glyphicon-wrench"></a>
 
                 <h1>New book</h1>
-                 <%= form_with model:@user, local:true do |f| %>
+                 <%= form_with model:@book, local:true do |f| %>
 
                 <h4>Title</h4>
                   <%= f.text_field :title %>
@@ -31,9 +34,16 @@
                 <thead>
                   <tr>
                     <th>users</th>
-                    <th></th>
-                    <th></th>
-                    <thcolspan="3"></thcolspan></th>
+                    <%= @book.title %>
+                    <%= @book.body %>
+                    <thcolspan="3"></thcolspan>
+                    </th>
+                    <td>
+                    <%= link_to "Edit", edit_book_path(@book.id) %>
+                    </td>
+                    <td>
+                    <%= link_to "Destroy", book_path(@book.id), method: :delete, "data-confirm" => "本当に消しますか？"%>
+                    </td>
                   </tr>
                 </thead>
               </table>
