@@ -1,9 +1,22 @@
 <h1>User info</h1>
+<%= form_for @user do |form| %>
+	<% if @user.errors.any? %>
+	  <div id="error_explanation">
+	    <h2><%= @user.errors.count %>error prohibited this obj from being saved:</h2>
+	    <ul>
+	    <% @user.errors.full_messages.each do |message| %>
+	      <li><%= message %></li>
+	    <% end %>
+	    </ul>
+	  </div>
+	<% end %>܀
+	
  <h4>Name<h4>
+  <%= form.text_field :name %>
  <h4>Image</h4>
- <%= form_for @user do |form| %>
                   <%= form.attachment_field :profile_image %>
                   <%= attachment_image_tag @user, :profile_image %>
-                <% end %>
- <h4>Introduction <%= f.text_area :introduction </h4>
- <%= f.submit 'Update User' %>
+ <h4>Introduction</h4>
+ <%= form.text_area :introduction %>
+ <%= form.submit 'Update User' %>
+<% end %>
